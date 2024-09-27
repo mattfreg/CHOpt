@@ -232,31 +232,33 @@ protected:
     virtual double base_timing_window() const = 0;
 
 public:
-    int base_note_value() const override { return 25; }
+    int base_note_value() const override { return 36; }
     double burst_size() const override { return 0.0; }
     bool chords_multiply_sustains() const override { return true; }
-    bool delayed_multiplier() const override { return false; }
+    bool delayed_multiplier() const override { return true; }
     double early_timing_window(double early_gap, double late_gap) const override
     {
         (void)early_gap;
         (void)late_gap;
-        return base_timing_window();
+        return 0.1;
     }
-    bool has_bres() const override { return true; }
-    bool ignore_average_multiplier() const override { return true; }
-    bool is_rock_band() const override { return true; }
-    double late_timing_window(double early_gap, double late_gap) const override
+    bool has_bres() const override { return false; };
+    bool has_unison_bonuses() const override { return false; }
+    bool is_rock_band() const override { return false; };
+    bool ignore_average_multiplier() const override { return true; };
+   double late_timing_window(double early_gap, double late_gap) const override
     {
         (void)early_gap;
-        return std::min(base_timing_window(), late_gap / 2);
+        (void)late_gap;
+        return 0.1;
     }
     bool merge_uneven_sustains() const override { return true; }
-    double minimum_sp_to_activate() const override { return 0.5; }
+    double minimum_sp_to_activate() const override { return 0.25; }
     bool overlaps() const override { return true; }
     bool round_tick_gap() const override { return false; }
-    SightRead::Tick snap_gap() const override { return SightRead::Tick {2}; }
-    double sp_gain_rate() const override { return 0.034; }
-    SpMode sp_mode() const override { return SpMode::OdBeat; }
+    SightRead::Tick snap_gap() const override { return SightRead::Tick {0}; };
+    double sp_gain_rate() const override { return 0.0; };
+    SpMode sp_mode() const override { return SpMode::OdBeat; };
     int sust_points_per_beat() const override { return 12; }
     SustainRoundingPolicy sustain_rounding() const override
     {
@@ -287,7 +289,7 @@ protected:
     double base_timing_window() const override { return 0.105; }
 
 public:
-    bool has_unison_bonuses() const override { return true; }
+    bool has_unison_bonuses() const override { return false; }
     int max_multiplier() const override { return 4; }
 };
 
@@ -296,7 +298,7 @@ protected:
     double base_timing_window() const override { return 0.105; }
 
 public:
-    bool has_unison_bonuses() const override { return true; }
+    bool has_unison_bonuses() const override { return false; }
     int max_multiplier() const override { return 6; }
 };
 
